@@ -21,18 +21,18 @@ public class SandwichController {
 //        return "/show";
 //    }
 
-    @GetMapping("show")
-    public String showById(@RequestParam(defaultValue = "1") int id, Model model){
-        System.out.println(id);
-        model.addAttribute("id",id);
-        return "/show";
-    }
-
-    @GetMapping("shows/{id}")
-    public String showByIdVariable(@PathVariable int id,Model model){
-        model.addAttribute("id",id);
-        return "/show";
-    }
+//    @GetMapping("show")
+//    public String showById(@RequestParam(defaultValue = "1") int id, Model model){
+//        System.out.println(id);
+//        model.addAttribute("id",id);
+//        return "/show";
+//    }
+//
+//    @GetMapping("shows/{id}")
+//    public String showByIdVariable(@PathVariable int id,Model model){
+//        model.addAttribute("id",id);
+//        return "/show";
+//    }
 
     @GetMapping("save")
     public String submit(@RequestParam(name = "condimen") String[] condimen, Model model) {
