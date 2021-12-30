@@ -1,15 +1,17 @@
 package com.codegym.configuration;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -20,10 +22,12 @@ import java.io.IOException;
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.codegym.controller")
-public class AppConfiguration extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+@PropertySource("classpath:upload_file.properties")
+public class AppConfiguration implements WebMvcConfigurer,  ApplicationContextAware {
+    @Value("${file-upload}")
+    private String fileUpload;
 
     private ApplicationContext applicationContext;
-    private String fileUpload;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -57,6 +61,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
         return viewResolver;
     }
 
+    //Cấu hình upload file
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/image/**")
@@ -70,5 +75,4 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
         resolver.setMaxUploadSizePerFile(52428800);
         return resolver;
     }
-
 }

@@ -22,6 +22,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
+
+    @Value("${file-upload}")
+    private String fileUpload;
     private final IProductService productService = new ProductService();
 
     @GetMapping("")
@@ -37,9 +40,6 @@ public class ProductController {
         modelAndView.addObject("productForm", new ProductForm());
         return modelAndView;
     }
-
-    @Value("${file-upload}")
-    private String fileUpload;
 
     @PostMapping("/save")
     public ModelAndView saveProduct(@ModelAttribute ProductForm productForm) {
